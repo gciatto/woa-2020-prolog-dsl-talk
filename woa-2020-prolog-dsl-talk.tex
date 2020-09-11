@@ -48,27 +48,6 @@
 	Sept. 16, 2020, Bologna, Italy
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\AtBeginSection[]
-{
-%\\\\\\\\\\\\\\\\\\\\\
-\begin{frame}<beamer>[c,noframenumbering]
-\frametitle{Next in Line\ldots}
-\tableofcontents[sectionstyle=show/shaded,subsectionstyle=hide]
-\end{frame}
-%\\\\\\\\\\\\\\\\\\\\\
-}
-\AtBeginSubsection[]
-{
-%\\\\\\\\\\\\\\\\\\\\\
-\begin{frame}<beamer>[shrink,noframenumbering]
-    \frametitle{Focus on\ldots}
-	\mbox{~}
-	\tableofcontents[currentsubsection,sectionstyle=shaded,subsectionstyle=show/shaded]
-	\mbox{~}
-\end{frame}
-%\\\\\\\\\\\\\\\\\\\\\
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -83,78 +62,88 @@
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}[c]{Context}
 
-    Provide some context (max 4-5 items):
-    %
-    \vfill
-    %
-    \begin{itemize}
-        \item fact 1
+    \begin{block}{AI side}
+        \begin{itemize}
+            \item AI is shining, brighter than ever
+            %
+            \begin{itemize}
+                \item mostly thanks to the advances in ML and sub-symbolic AI
+            \end{itemize}
+
+            \item[$\Rightarrow$] symbolic AI is gaining momentum because of XAI
+            %
+            \begin{itemize}
+                \item[!] hybrid solution mixing logic \& data-driven AI are flourishing \ccite{xaisurvey-ia2020}
+            \end{itemize}
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{MAS side}
+        The MAS community is eager for logic-based technologies \ccite{lptech4mas-jaamas2020}
         %
         \begin{itemize}
-            \item note
+            \item to support agents' knowledge representation, reasoning, or execution
+
+            \item or to prove MAS properties
+
+            \item[!] despite few mature tech exist, and even fewer are actively maintained
         \end{itemize}
-
-        \vfill
-
-        \item[$\Rightarrow$] fact 2 implied by fact 1
-        %
-        \begin{itemize}
-            \item[!] important \alert{notice}
-        \end{itemize}
-
-        \vfill
-
-        \item fact 3
-        %
-        \begin{itemize}
-            \item note
-        \end{itemize}
-
-        \vfill
-
-        \item fact 4
-
-    \end{itemize}
+    \end{block}
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\
 
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}[c]{Motivation}
-    Enumerate motivations for this work:
-    %
+
+    \begin{alertblock}{The problem with logic-based technologies}
+        There is technological barrier slowing
+        %
+        \begin{itemize}
+            \item the adoption of logic programming (LP) as paradigm
+            \item the exploitation of logic-based technologies
+        \end{itemize}
+        %
+        while programming \emph{in the large}
+    \end{alertblock}
+
     \vfill
-    %
+
     \begin{itemize}
-        \item motivation 1
+        \item $\overbrace{\text{mainstream programming languages}}^\text{\itshape e.g. Scala, Kotlin, Python, C\#}$ are blending several paradigms
         %
         \begin{itemize}
-            \item[e.g.] example
+            \item[e.g.] imperative, object-oriented (OOP), and functional programming (FP)
+            \item except LP!
         \end{itemize}
 
         \vfill
 
-        \item motivation 2
-        %
-        \begin{itemize}
-            \item note
-        \end{itemize}
-
-        \vfill
-
-        \item motivation 3 with citations \ccite{crawford2016artificial,RibeiroSG16,wexler2017computer}
-
-        \vfill
-
-        \item etc
-
+        \item $\underbrace{\text{mainstream platforms}}_\text{\itshape e.g. JVM, .NET, JS, Python}$ are poorly interoperable with logic-based tech.
     \end{itemize}
+
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\
 
 %\\\\\\\\\\\\\\\\\\\\\
-\begin{frame}{Some state of the art (optional)}
+\begin{frame}{Motivating example -- SWI-Prolog's FLI for Java}
 
-    Provide relevant information about the state of the art / related works here, possibly with references
+    \begin{itemize}
+        \item Many Prolog implementors rely on Foreign Language Interfaces (FLI)
+        %
+        \begin{itemize}
+            \item (mostly targetting Java, or C)
+        \end{itemize}
+
+        \vfill
+
+        \item For instance, SWI-Prolog comes with a FLI for Java:
+        %
+        \inputminted{java}{code/SwiFliExample.java}
+
+        \vfill
+
+        \item[$\rightarrow$] No paradigm harmonization between Prolog and $\underbrace{\text{the hosting language}}_\text{\itshape i.e. Java}$
+    \end{itemize}
 
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\
@@ -162,12 +151,10 @@
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}{Contribution of the paper}
 
-\begin{block}{Explicitly state the contributions of the paper}
-    \begin{itemize}
-        \item contribution 1
-        \item contribution 2
-    \end{itemize}
-\end{block}
+\begin{itemize}
+    \item Show that OOP, FP, and LP can be blended into a single language
+    \item contribution 2
+\end{itemize}
 
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\

@@ -34,3 +34,25 @@
 }
 \BeforeBeginEnvironment{minted}{}
 \AfterEndEnvironment{minted}{}
+
+% Beamer Conf
+\AtBeginSection[]
+{
+    %\\\\\\\\\\\\\\\\\\\\\
+    \begin{frame}<beamer>[c,noframenumbering]
+        \frametitle{Next in Line\ldots}
+        \tableofcontents[sectionstyle=show/shaded,subsectionstyle=hide]
+    \end{frame}
+    %\\\\\\\\\\\\\\\\\\\\\
+}
+\AtBeginSubsection[]
+{
+    %\\\\\\\\\\\\\\\\\\\\\
+    \begin{frame}<beamer>[shrink,noframenumbering]
+        \frametitle{Focus on\ldots}
+        \mbox{~}
+        \tableofcontents[currentsubsection,sectionstyle=shaded,subsectionstyle=show/shaded]
+        \mbox{~}
+    \end{frame}
+    %\\\\\\\\\\\\\\\\\\\\\
+}
