@@ -13,9 +13,6 @@
     \twopkt{}: logic programming with objects \& functions in Kotlin
 }
 %
-% \subtitle{Extended Abstract}
-%
-% same authors order of the presented paper
 \author[Ciatto et al.]{
     Giovanni Ciatto$^*$
     \and
@@ -128,7 +125,7 @@
 \begin{frame}{Motivating example -- SWI-Prolog's FLI for Java}
 
     \begin{itemize}
-        \item Many Prolog implementors rely on Foreign Language Interfaces (FLI)
+        \item Prolog \ccite{ColmerauerR93} implementors rely on Foreign Language Interfaces (FLI) \ccite{Bagnara2002}
         %
         \begin{itemize}
             \item (mostly targetting Java, or C)
@@ -136,7 +133,7 @@
 
         \vfill
 
-        \item For instance, SWI-Prolog comes with a FLI for Java:
+        \item For instance, SWI-Prolog comes with a FLI for Java\footnote{\url{https://jpl7.org}}:
         %
         \inputminted{java}{code/SwiFliExample.java}
 
@@ -153,32 +150,209 @@
 
 \begin{itemize}
     \item Show that OOP, FP, and LP can be blended into a single language
-    \item contribution 2
+
+    \vfill
+
+    \item Propose a DSL blending Kotlin (OOP + FP) and Prolog (LP)
+
+    \vfill
+
+    \item Pave the way to the creation of similar DSL in mainstream languages
 \end{itemize}
 
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\
 
 %===============================================================================
-\section{Theory / modelling / design}
+\section{Kotlin DSL for Prolog}
 %===============================================================================
+
+%-------------------------------------------------------------------------------
+\subsection{Overview}
+%-------------------------------------------------------------------------------
 
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}%[allowframebreaks]
-\frametitle{Theory / modelling / design}
+\frametitle{Whet your appetite}
 
-    Provide 2-3 slides discussing the Theory / modelling / design
+    Our Kotlin DSL for Prolog vs. actual Prolog
+
+    \inputminted[fontsize=\tiny]{kotlin}{code/Relatives.kt}
+    %
+    \rhint{try it here: \url{https://github.com/tuProlog/prolog-dsl-example}}
 
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\
 
-\section{Case study / Experiments / Results}
+%-------------------------------------------------------------------------------
+\subsection{Principles}
+%-------------------------------------------------------------------------------
 
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}%[allowframebreaks]
-\frametitle{Case study / Experiments / Results}
+    \frametitle{Design Principles}
 
-    Provide 2-3 slides discussing the Case study / Experiments / Results of the paper
+    \begin{block}{\textbf{P\textsubscript{1}} -- The DSL \textbf{strictly extends} the hosting language}
+        \begin{itemize}
+            \item[$\rightarrow$] no feature of the hosting language is forbidden within the DSL
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{\textbf{P\textsubscript{2}} -- The DSL is \textbf{interoperable} with hosting language}
+        \begin{itemize}
+            \item[$\rightarrow$] all features of the hosting language are allowed within the DSL
+            \item[$\rightarrow$] LP is \emph{harmonised} with the hosting language paradigm(s)
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{\textbf{P\textsubscript{3}} -- The DSL is \textbf{well encapsulated} within the hosting language}
+        \begin{itemize}
+            \item[$\rightarrow$] i.e. only usable within well-identifiable sections
+        \end{itemize}
+    \end{block}
+
+    \begin{block}{\textbf{P\textsubscript{4}} -- The DSL is \textbf{as close as possible} to Prolog}
+        \begin{itemize}
+            \item[$\rightarrow$] both syntactically \& semantically
+        \end{itemize}
+    \end{block}
+
+\end{frame}
+%\\\\\\\\\\\\\\\\\\\\\
+
+%-------------------------------------------------------------------------------
+\subsection{Functioning}
+%-------------------------------------------------------------------------------
+
+%\\\\\\\\\\\\\\\\\\\\\
+\begin{frame}[allowframebreaks]
+    \frametitle{Functioning in the Kotlin case}
+
+    \begin{block}{}
+        The DSL is only enabled within \ktinline{prolog { |$\langle DSL\ block \rangle$| }} expressions
+    \end{block}
+
+    \begin{block}{}
+        $\begin{array}{rl}
+        \text{Expressions of the form:} & \ktinline{"functor"(|$\langle e_1 \rangle$|, |$\langle e_2 \rangle$|, |$\ldots$|)}
+        \\
+        \text{are interpreted as terms:} & \mathtt{functor}(t_1,\ t_2,\ \ldots)
+        \\\color{gray}
+        \text{provided that} &\color{gray} \forall i : \langle e_i \rangle \text{ can be converted into } t_i
+        \end{array}$
+    \end{block}
+
+    \begin{block}{}
+        Expressions of the form:
+        %
+        \ktinline{rule {"head"(|$\langle e_1 \rangle$|, |$\ldots$|,  |$\langle e_N \rangle$|) `if` (|$\langle e_{N+1} \rangle$| and |$\ldots$| and |$\langle e_M \rangle$|) } }
+        $\begin{array}{rl}
+        \text{\phantom{expre}are interpreted as rules:} & \mathtt{head}(t_1,\ \ldots,\ t_N) \impliedBy t_{N+1},\ \ldots,\ t_M
+        \\\color{gray}
+        \text{provided that} &\color{gray} \forall i : \langle e_i \rangle \text{ can be converted into } t_i
+        \end{array}$
+    \end{block}
+    %
+    \begin{itemize}
+        \item similar syntax for facts
+    \end{itemize}
+
+    \framebreak
+
+    \begin{block}{Within \texttt{prolog \{ $\ldots$ \} blocks}}
+        \begin{itemize}
+            \item \alert{\texttt{staticKb($Clause_1$, $Clause_2$, ...)}} sets up the local \alert{static} KB
+            \item \alert{\texttt{dynamicKb($Clause_1$, $Clause_2$, ...)}} sets up the local \alert{dynamic} KB
+            \item \alert{\texttt{solve($Query$, $Timeout$)}} returns a \emph{lazy stream} of solutions
+            \item \alert{\texttt{assert($Clause$)}} appends a new clause to the local \alert{dynamic} KB
+            \item $\ldots$
+        \end{itemize}
+    \end{block}
+
+\end{frame}
+%\\\\\\\\\\\\\\\\\\\\\
+
+%\\\\\\\\\\\\\\\\\\\\\
+\begin{frame}%[allowframebreaks]
+    \frametitle{Kotlin to Prolog conversions}
+
+    \begin{table}[]
+        \centering
+        \begin{tabular}{c|c}
+            \textbf{Kotlin}        & \textbf{Prolog} \\
+            \hline\hline
+            lowercase string       & atom            \\
+            uppercase string       & variable        \\
+            int, long, short, byte & integer         \\
+            double, float          & real            \\
+            boolean                & atom            \\
+            list, array, iterable  & list
+        \end{tabular}
+    \end{table}
+
+\end{frame}
+%\\\\\\\\\\\\\\\\\\\\\
+
+%===============================================================================
+\section{Behind the scenes}
+%===============================================================================
+
+%\\\\\\\\\\\\\\\\\\\\\
+\begin{frame}%[allowframebreaks]
+\frametitle{Recipe for a Prolog-like DSL}
+
+    \begin{enumerate}
+        \item A language with a flexible API
+        \item Full fledged API for Prolog, supporting that language
+        \item Exploit flexibility to hide the exploitation of the API
+    \end{enumerate}
+
+\end{frame}
+%\\\\\\\\\\\\\\\\\\\\\
+
+%\\\\\\\\\\\\\\\\\\\\\
+\begin{frame}%[allowframebreaks]
+    \frametitle{Kotlin mechanisms}
+
+    \begin{enumerate}
+        \item Operator overloading
+
+        \item Block-like lambda expressions
+
+        \item Function types/literals with receivers
+
+        \item Extension methods
+    \end{enumerate}
+
+\end{frame}
+%\\\\\\\\\\\\\\\\\\\\\
+
+%\\\\\\\\\\\\\\\\\\\\\
+\begin{frame}%[allowframebreaks]
+    \frametitle{\twopkt{} -- Overview}
+
+    \begin{enumerate}
+        \item Operator overloading
+
+        \item Block-like lambda expressions
+
+        \item Function types/literals with receivers
+
+        \item Extension methods
+    \end{enumerate}
+
+\end{frame}
+%\\\\\\\\\\\\\\\\\\\\\
+
+%\\\\\\\\\\\\\\\\\\\\\
+\begin{frame}%[allowframebreaks]
+    \frametitle{DSL design on top of \twopkt}
+
+    \begin{enumerate}
+        \item Onion scopes
+
+        \item Layered views
+    \end{enumerate}
 
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\

@@ -15,7 +15,8 @@
 
 % New commands
 \newcommand{\impliedBy}{\texttt{ :- }}
-\newcommand{\hint}[1]{{\tiny\textcolor{gray}{#1}}}
+\newcommand{\hint}[1]{{\tiny\alert{!} \textcolor{gray}{#1}}}
+\newcommand{\rhint}[1]{{\hfill\tiny\alert{!} \textcolor{gray}{#1}}}
 
 % Minted Conf
 \setminted{
@@ -34,6 +35,7 @@
 }
 \BeforeBeginEnvironment{minted}{}
 \AfterEndEnvironment{minted}{}
+\newcommand{\ktinline}[1]{\mintinline[frame=none,framesep=0mm,fontsize=\normalsize]{kotlin}{#1}}
 
 % Beamer Conf
 \AtBeginSection[]
@@ -48,11 +50,11 @@
 \AtBeginSubsection[]
 {
     %\\\\\\\\\\\\\\\\\\\\\
-    \begin{frame}<beamer>[shrink,noframenumbering]
+    \begin{frame}<beamer>[c,noframenumbering]
         \frametitle{Focus on\ldots}
-        \mbox{~}
+%        \mbox{~}
         \tableofcontents[currentsubsection,sectionstyle=shaded,subsectionstyle=show/shaded]
-        \mbox{~}
+%        \mbox{~}
     \end{frame}
     %\\\\\\\\\\\\\\\\\\\\\
 }
