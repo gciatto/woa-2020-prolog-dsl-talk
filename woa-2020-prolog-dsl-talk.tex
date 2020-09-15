@@ -89,7 +89,7 @@
 
             \item or to prove MAS properties
 
-            \item[!] despite few mature tech exist, and even fewer are actively maintained
+            \item[!] despite few mature tech. exist, and even fewer are actively maintained
         \end{itemize}
     \end{block}
 \end{frame}
@@ -160,10 +160,16 @@
     \vfill
 
     \item Propose a DSL blending Kotlin (OOP + FP) and Prolog (LP)
+    \\
+    \hint{DSL = domain specific language}
 
     \vfill
 
     \item Pave the way to the creation of similar DSL in mainstream languages
+    %
+    \begin{itemize}
+    	\item[eg] Scala
+    \end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -198,26 +204,26 @@
 \begin{frame}%[allowframebreaks]
     \frametitle{Design Principles}
 
-    \begin{block}{\textbf{P\textsubscript{1}} -- The DSL \textbf{strictly extends} the hosting language}
+    \begin{block}<1>{\textbf{P\textsubscript{1}} -- The DSL \textbf{strictly extends} the hosting language}
         \begin{itemize}
             \item[$\rightarrow$] no feature of the hosting language is forbidden within the DSL
         \end{itemize}
     \end{block}
 
-    \begin{block}{\textbf{P\textsubscript{2}} -- The DSL is \textbf{interoperable} with hosting language}
+    \begin{block}<2>{\textbf{P\textsubscript{2}} -- The DSL is \textbf{interoperable} with hosting language}
         \begin{itemize}
             \item[$\rightarrow$] all features of the hosting language are allowed within the DSL
             \item[$\rightarrow$] LP is \emph{harmonised} with the hosting language paradigm(s)
         \end{itemize}
     \end{block}
 
-    \begin{block}{\textbf{P\textsubscript{3}} -- The DSL is \textbf{well encapsulated} within the hosting language}
+    \begin{block}<3>{\textbf{P\textsubscript{3}} -- The DSL is \textbf{well encapsulated} within the hosting language}
         \begin{itemize}
             \item[$\rightarrow$] i.e. only usable within well-identifiable sections
         \end{itemize}
     \end{block}
 
-    \begin{block}{\textbf{P\textsubscript{4}} -- The DSL is \textbf{as close as possible} to Prolog}
+    \begin{block}<4>{\textbf{P\textsubscript{4}} -- The DSL is \textbf{as close as possible} to Prolog}
         \begin{itemize}
             \item[$\rightarrow$] both syntactically \& semantically
         \end{itemize}
@@ -324,7 +330,7 @@
 
         \vfill
 
-        \item Exploit flexibility to hide the exploitation of the API
+        \item Leverage flexibility to hide the exploitation of the API
     \end{enumerate}
 
 \end{frame}
