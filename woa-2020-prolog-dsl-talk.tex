@@ -243,6 +243,10 @@
     \begin{block}<1>{}
         The DSL is only enabled within \ktinline{prolog { |$\langle DSL\ block \rangle$| }} expressions
     \end{block}
+    %
+    \begin{itemize}
+        \item<1> there, Kotlin objects are automatically converted into Prolog terms
+    \end{itemize}
 
     \begin{block}<2>{}
         $\begin{array}{rl}
@@ -254,7 +258,14 @@
         \end{array}$
     \end{block}
 
-    \begin{block}<3>{}
+\end{frame}
+%\\\\\\\\\\\\\\\\\\\\\
+
+%\\\\\\\\\\\\\\\\\\\\\
+\begin{frame}%[allowframebreaks]
+\frametitle{Functioning in the Kotlin case II}
+
+    \begin{block}{}
         Expressions of the form:
         %
         \ktinline{rule {"head"(|$\langle e_1 \rangle$|, |$\ldots$|,  |$\langle e_N \rangle$|) `if` (|$\langle e_{N+1} \rangle$| and |$\ldots$| and |$\langle e_M \rangle$|) } }
@@ -266,7 +277,7 @@
     \end{block}
     %
     \begin{itemize}
-        \item<3> similar syntax for facts
+        \item similar syntax for facts
     \end{itemize}
 
 \end{frame}
@@ -274,7 +285,7 @@
 
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}%[allowframebreaks]
-\frametitle{Functioning in the Kotlin case II}
+\frametitle{Functioning in the Kotlin case III}
 
     \begin{block}{Within \texttt{prolog \{ $\ldots$ \} blocks}}
         \begin{itemize}
@@ -310,9 +321,45 @@
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\
 
+%-------------------------------------------------------------------------------
+\subsection{Advantages}
+%-------------------------------------------------------------------------------
+
+%\\\\\\\\\\\\\\\\\\\\\
+\begin{frame}%[allowframebreaks]
+    \frametitle{Advantages of a Prolog-like DSL}
+
+    \begin{itemize}
+
+        \item No further parser / code generator / compiler is needed
+
+        \vfill
+
+        \item Features of the hosting language can be exploited if Prolog falls short
+
+        \vfill
+
+        \item Support tools of the hosting language can be exploited for Prolog
+        %
+        \begin{itemize}
+            \item[eg] debugger, type checker, IDE, etc
+        \end{itemize}
+
+        \vfill
+
+        \item Bring the power of LP to mainstream programming
+    \end{itemize}
+
+\end{frame}
+%\\\\\\\\\\\\\\\\\\\\\
+
 %===============================================================================
 \section{Behind the scenes}
 %===============================================================================
+
+%-------------------------------------------------------------------------------
+\subsection{Overview}
+%-------------------------------------------------------------------------------
 
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}%[allowframebreaks]
@@ -341,6 +388,10 @@
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\
 
+%-------------------------------------------------------------------------------
+\subsection{\twopkt{}}
+%-------------------------------------------------------------------------------
+
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}%[allowframebreaks]
     \frametitle{\twopkt{} -- Overview}
@@ -358,6 +409,10 @@
 
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\
+
+%-------------------------------------------------------------------------------
+\subsection{Kotlin}
+%-------------------------------------------------------------------------------
 
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}[allowframebreaks]
@@ -391,7 +446,7 @@
 
     \framebreak
 
-    \begin{alertblock}{This is a Kotlin-specific discussion!}
+    \begin{alertblock}{This is a Kotlin-specific solution!}
         Other languages may support DSL through different mechanisms
         %
         \begin{itemize}
@@ -401,6 +456,10 @@
 
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\
+
+%-------------------------------------------------------------------------------
+\subsection{\twopkt{} + Kotlin}
+%-------------------------------------------------------------------------------
 
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}%[allowframebreaks]
