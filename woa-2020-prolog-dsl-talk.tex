@@ -234,11 +234,11 @@
 
     \begin{block}{}
         $\begin{array}{rl}
-        \text{Expressions of the form:} & \ktinline{"functor"(|$\langle e_1 \rangle$|, |$\langle e_2 \rangle$|, |$\ldots$|)}
-        \\
-        \text{are interpreted as terms:} & \mathtt{functor}(t_1,\ t_2,\ \ldots)
-        \\\color{gray}
-        \text{provided that} &\color{gray} \forall i : \langle e_i \rangle \text{ can be converted into } t_i
+            \text{Expressions of the form:} & \ktinline{"functor"(|$\langle e_1 \rangle$|, |$\langle e_2 \rangle$|, |$\ldots$|)}
+            \\
+            \text{are interpreted as terms:} & \mathtt{functor}(t_1,\ t_2,\ \ldots)
+            \\\color{gray}
+            \text{provided that} &\color{gray} \forall i : \langle e_i \rangle \text{ can be converted into } t_i
         \end{array}$
     \end{block}
 
@@ -247,9 +247,9 @@
         %
         \ktinline{rule {"head"(|$\langle e_1 \rangle$|, |$\ldots$|,  |$\langle e_N \rangle$|) `if` (|$\langle e_{N+1} \rangle$| and |$\ldots$| and |$\langle e_M \rangle$|) } }
         $\begin{array}{rl}
-        \text{\phantom{expre}are interpreted as rules:} & \mathtt{head}(t_1,\ \ldots,\ t_N) \impliedBy t_{N+1},\ \ldots,\ t_M
-        \\\color{gray}
-        \text{provided that} &\color{gray} \forall i : \langle e_i \rangle \text{ can be converted into } t_i
+            \text{\phantom{expre}are interpreted as rules:} & \mathtt{head}(t_1,\ \ldots,\ t_N) \impliedBy t_{N+1},\ \ldots,\ t_M
+            \\\color{gray}
+            \text{provided that} &\color{gray} \forall i : \langle e_i \rangle \text{ can be converted into } t_i
         \end{array}$
     \end{block}
     %
@@ -303,25 +303,22 @@
 
     \begin{enumerate}
         \item A language with a flexible API
+        %
+        \begin{itemize}
+            \item[e.g.] Kotlin, Scala, Python, Groovy, etc.
+        \end{itemize}
+
+        \vfill
+
         \item Full fledged API for Prolog, supporting that language
+        %
+        \begin{itemize}
+            \item[e.g.] \twopkt{} \hint{see next slide}
+        \end{itemize}
+
+        \vfill
+
         \item Exploit flexibility to hide the exploitation of the API
-    \end{enumerate}
-
-\end{frame}
-%\\\\\\\\\\\\\\\\\\\\\
-
-%\\\\\\\\\\\\\\\\\\\\\
-\begin{frame}%[allowframebreaks]
-    \frametitle{Kotlin mechanisms}
-
-    \begin{enumerate}
-        \item Operator overloading
-
-        \item Block-like lambda expressions
-
-        \item Function types/literals with receivers
-
-        \item Extension methods
     \end{enumerate}
 
 \end{frame}
@@ -331,15 +328,55 @@
 \begin{frame}%[allowframebreaks]
     \frametitle{\twopkt{} -- Overview}
 
+    Comprehensive, modular, re-usable API covering most aspects of LP:
+    %
+    \begin{figure}
+        \includegraphics[width=\linewidth]{img/2p-kt-overview}
+    \end{figure}
+    %
+    \begin{itemize}
+        \item runs on several platforms (e.g., JVM, NodeJS, Browsers, Android)
+        \item more info here: \url{https://github.com/tuProlog/2p-kt}
+    \end{itemize}
+
+\end{frame}
+%\\\\\\\\\\\\\\\\\\\\\
+
+%\\\\\\\\\\\\\\\\\\\\\
+\begin{frame}[allowframebreaks]
+    \frametitle{Kotlin mechanisms for DSL}
+
     \begin{enumerate}
         \item Operator overloading
+        %
+        \inputminted{kotlin}{code/Operators.kt}
+
+        \framebreak
 
         \item Block-like lambda expressions
-
-        \item Function types/literals with receivers
+        %
+        \inputminted{kotlin}{code/Lambdas.kt}
 
         \item Extension methods
+        %
+        \inputminted{kotlin}{code/Extensions.kt}
+
+        \framebreak
+
+        \item Function types/lambdas with receivers
+        %
+        \inputminted{kotlin}{code/Receivers.kt}
     \end{enumerate}
+
+    \framebreak
+
+    \begin{alertblock}{This is a Kotlin-specific discussion!}
+        Other languages may support DSL through different mechanisms
+        %
+        \begin{itemize}
+            \item[e.g.] implicits in Scala
+        \end{itemize}
+    \end{alertblock}
 
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\
@@ -348,11 +385,24 @@
 \begin{frame}%[allowframebreaks]
     \frametitle{DSL design on top of \twopkt}
 
-    \begin{enumerate}
-        \item Onion scopes
+    \begin{columns}
+        \centering
+        \begin{column}{.15\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{img/layers}
+        \end{column}
+        \hfill
+        \begin{column}{.84\linewidth}
+            \includegraphics[width=\linewidth]{img/dsl-types}
+        \end{column}
+    \end{columns}
 
-        \item Layered views
-    \end{enumerate}
+    \vfill
+
+    \begin{itemize}
+        \item Onion design with incremental features
+        \item Built on top of \twopkt{} and Kotlin
+    \end{itemize}
 
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\
@@ -363,26 +413,22 @@
 \begin{frame}%[allowframebreaks]
 \frametitle{Conclusions \& future works}
 
-\begin{block}{Summing up}
-    Summarise the most relevant contributions of this study:
-    %
+\begin{block}{Summing up, in this study we\ldots}
     \begin{itemize}
-        \item conclusion 1
-        \item conclusion 2
-        \item conclusion 3
+        \item argued LP should be integrated in modern languages/paradigms
+        \item designed an in-language, DSL-based solution
+        \item prototyped an actual Kotlin-based DSL for Prolog
     \end{itemize}
 \end{block}
 
-\begin{exampleblock}{Future works}
-    Sketch some future research directions
-    %
+\begin{exampleblock}{In the future, we will try to\ldots}
     \begin{itemize}
-        \item future work 1
-        \item future work 2
+        \item design Prolog-like DSL for other languages (e.g. Scala)
+        \item design an agent-oriented (possibly BDI?) DSL
+        \item extend \twopkt{} to support other sorts of inference mechanisms
+        \item design a logic-based API for sub-symbolic AI
     \end{itemize}
 \end{exampleblock}
-
-(may be split into 2 slides)
 
 \end{frame}
 %\\\\\\\\\\\\\\\\\\\\\

@@ -108,7 +108,7 @@ package "clauses & theories" {
 package resolution {
 
     interface Solver {
-        + solve(Struct): Sequence<Clause> 
+        + solve(Struct,Long): Sequence<Solution> 
     }
     
     interface MutableSolver {
@@ -118,5 +118,19 @@ package resolution {
     
     Solver <|-- MutableSolver
 
+    class Solution {
+        + query: Struct
+    }
+    class Yes {
+        + substitution: Unifier
+    }
+    class No
+    class Halt {
+        + exception: PrologError
+    }
+
+    Solution <|-- Yes
+    Solution <|-- No
+    Solution <|-- Halt
 }
 @enduml
