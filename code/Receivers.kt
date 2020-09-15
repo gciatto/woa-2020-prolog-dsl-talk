@@ -1,4 +1,4 @@
-class PrologScope {
+class PrologDsl {
   fun Any.toTerm(): Term = // ...
   operator fun String.invoke(vararg args: Term): Struct = // ...
 
@@ -6,9 +6,9 @@ class PrologScope {
     this.toTerm() + other.toTerm()
 }
 
-// type with receiver  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-fun <R> prolog(action: PrologScope.() -> R): R =
-    PrologScope().action()
+//                 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ type with receiver
+fun prolog(action: PrologDsl.() -> Any): Any =
+    PrologDsl().action()
 
 //     ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓  lambda with receiver
-prolog { "f"("1") + "f"("2") } // in braces this is PrologScope
+prolog { "f"("1") + "f"("2") } // in braces this is PrologDsl

@@ -58,9 +58,9 @@
 
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}[c]{Context}
-	
+
 	New opportunities for logic-based technologies: (X)AI and MAS
-	
+
 	\vfill
 
     \begin{block}{AI side}
@@ -237,14 +237,14 @@
 %-------------------------------------------------------------------------------
 
 %\\\\\\\\\\\\\\\\\\\\\
-\begin{frame}[allowframebreaks]
-    \frametitle{Functioning in the Kotlin case}
+\begin{frame}%[allowframebreaks]
+    \frametitle{Functioning in the Kotlin case I}
 
-    \begin{block}{}
+    \begin{block}<1>{}
         The DSL is only enabled within \ktinline{prolog { |$\langle DSL\ block \rangle$| }} expressions
     \end{block}
 
-    \begin{block}{}
+    \begin{block}<2>{}
         $\begin{array}{rl}
             \text{Expressions of the form:} & \ktinline{"functor"(|$\langle e_1 \rangle$|, |$\langle e_2 \rangle$|, |$\ldots$|)}
             \\
@@ -254,7 +254,7 @@
         \end{array}$
     \end{block}
 
-    \begin{block}{}
+    \begin{block}<3>{}
         Expressions of the form:
         %
         \ktinline{rule {"head"(|$\langle e_1 \rangle$|, |$\ldots$|,  |$\langle e_N \rangle$|) `if` (|$\langle e_{N+1} \rangle$| and |$\ldots$| and |$\langle e_M \rangle$|) } }
@@ -266,10 +266,15 @@
     \end{block}
     %
     \begin{itemize}
-        \item similar syntax for facts
+        \item<3> similar syntax for facts
     \end{itemize}
 
-    \framebreak
+\end{frame}
+%\\\\\\\\\\\\\\\\\\\\\
+
+%\\\\\\\\\\\\\\\\\\\\\
+\begin{frame}%[allowframebreaks]
+\frametitle{Functioning in the Kotlin case II}
 
     \begin{block}{Within \texttt{prolog \{ $\ldots$ \} blocks}}
         \begin{itemize}
@@ -291,7 +296,7 @@
     \begin{table}[]
         \centering
         \begin{tabular}{c|c}
-            \textbf{Kotlin}        & \textbf{Prolog} \\
+            \textbf{Kotlin Object Type}        & \textbf{Prolog Term Type} \\
             \hline\hline
             lowercase string       & atom            \\
             uppercase string       & variable        \\
@@ -357,6 +362,10 @@
 %\\\\\\\\\\\\\\\\\\\\\
 \begin{frame}[allowframebreaks]
     \frametitle{Kotlin mechanisms for DSL}
+
+    We exploited 4 basic mechanisms:
+
+    \medskip
 
     \begin{enumerate}
         \item Operator overloading
